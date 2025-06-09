@@ -62,9 +62,19 @@ button:hover {
   color: #0d0d0d;
 }
 
-#login-screen {
-  z-index: 999;
+#chat-screen {
   position: relative;
+  z-index: 1;
+}
+
+#login-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  background-color: #0d0d0d;
 }
 
 #login-screen.hidden {
@@ -72,7 +82,6 @@ button:hover {
   visibility: hidden;
   opacity: 0;
   z-index: -9999;
-  position: absolute;
   pointer-events: none;
 }
 
