@@ -102,3 +102,9 @@ function fetchMessages() {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
   });
 }
+
+function clearAllMessages() {
+  if (confirm("Are you sure you want to delete all messages? This cannot be undone.")) {
+    db.ref("messages").remove();
+  }
+}
