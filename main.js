@@ -54,6 +54,8 @@ function fetchMessages() {
     const messagesDiv = document.getElementById("messages");
     messagesDiv.innerHTML = "";
     const data = snapshot.val();
+    if (!data) return;
+
     for (let key in data) {
       const msg = data[key];
       const text = decryptMessage(msg.text);
@@ -63,20 +65,46 @@ function fetchMessages() {
       let views = parseInt(decryptMessage(msg.views)) || 0;
       let viewedAt = decryptMessage(msg.viewedAt);
 
-      // handle first-time view
-     if (!viewedAt) {
-  // Only update once — and delay a bit to break race condition
-  setTimeout(() => {
-    const newViewedAt = new Date().toISOString();
-    db.ref(`messages/${key}/viewedAt`).set(encryptMessage(newViewedAt));
-    db.ref(`messages/${key}/views`).set(encryptMessage(\"1\"));
-  }, 500); // slight delay to avoid immediate fetch loop
-} else {
-  // Only increment if it's still low
-  if (views < 2) {
-    db.ref(`messages/${key}/views`).set(encryptMessage((views + 1).toString()));
-  }
+      const now = new Date();
+
+      // Handle expiration logic
+      let deleteRef = false;
+
+      if (expireOption === "1view" && views >= 1) {
+        deleteRef = true;
+      }
+
+      if (viewedAt) {
+        const viewedDate = new Date(viewedAt);
+        const elapsedMinutes = (now - viewedDate) / 60000;
+
+        if (expireOption === "5min" && elapsedMinutes > 5) deleteRef = true;
+        if (expireOption === "15min" && elapsedMinutes > 15) deleteRef = true;
+        if (expireOption === "1hr" && elapsedMinutes > 60) deleteRef = true;
+      }
+
+      if (deleteRef) {
+        db.ref(`messages/${key}`).remove();
+        continue;
+      }
+
+      // Track first-time view only if not already set
+      if (!viewedAt) {
+        const nowStr = now.toISOString();
+        db.ref(`messages/${key}/viewedAt`).set(encryptMessage(nowStr));
+        db.ref(`messages/${key}/views`).set(encryptMessage("1"));
+      }
+
+      const msgEl = document.createElement("div");
+      msgEl.className = "message";
+      msgEl.innerText = `[${new Date(timeStr).toLocaleString()}] ${user}: ${text}`;
+      messagesDiv.appendChild(msgEl);
+    }
+
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  });
 }
+
 
 
       // handle expiration logic
