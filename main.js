@@ -64,14 +64,20 @@ function fetchMessages() {
       let viewedAt = decryptMessage(msg.viewedAt);
 
       // handle first-time view
-      if (!viewedAt) {
-        viewedAt = new Date().toISOString();
-        db.ref("messages/" + key + "/viewedAt").set(encryptMessage(viewedAt));
-        db.ref("messages/" + key + "/views").set(encryptMessage((views + 1).toString()));
-      } else {
-        views++;
-        db.ref("messages/" + key + "/views").set(encryptMessage(views.toString()));
-      }
+     if (!viewedAt) {
+  // Only update once — and delay a bit to break race condition
+  setTimeout(() => {
+    const newViewedAt = new Date().toISOString();
+    db.ref(`messages/${key}/viewedAt`).set(encryptMessage(newViewedAt));
+    db.ref(`messages/${key}/views`).set(encryptMessage(\"1\"));
+  }, 500); // slight delay to avoid immediate fetch loop
+} else {
+  // Only increment if it's still low
+  if (views < 2) {
+    db.ref(`messages/${key}/views`).set(encryptMessage((views + 1).toString()));
+  }
+}
+
 
       // handle expiration logic
       const now = new Date();
