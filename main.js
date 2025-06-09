@@ -82,7 +82,7 @@ function fetchMessages() {
 
       if (deleteRef) {
         db.ref(`messages/${key}`).remove();
-        continue;
+        continue; // ✅ VALID because it's inside the loop
       }
 
       if (!viewedAt) {
