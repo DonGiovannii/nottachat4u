@@ -62,3 +62,11 @@ button:hover {
   color: #0d0d0d;
 }
 
+#login-screen {
+  z-index: 999;
+  position: relative;
+}
+#chat-screen {
+  z-index: 1;
+  position: relative;
+}
