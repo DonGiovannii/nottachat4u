@@ -106,3 +106,10 @@ function clearAllMessages() {
     db.ref("messages").remove();
   }
 }
+
+document.getElementById("message").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+});
