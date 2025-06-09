@@ -21,7 +21,15 @@
     </div>
     <div id="messages"></div>
     <textarea id="message" placeholder="Type your message..."></textarea>
-    <button onclick="sendMessage()">Send</button>
+    <select id="expireOption">
+      <option value="never">Never</option>
+      <option value="1view">Vanish after 1 view</option>
+      <option value="5min">Vanish after 5 min</option>
+      <option value="15min">Vanish after 15 min</option>
+      <option value="1hr">Vanish after 1 hr</option>
+    </select>
+<button onclick="sendMessage()">Send</button>
+
   </div>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
