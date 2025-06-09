@@ -9,14 +9,9 @@ function login() {
   });
   encryptionKey = key;
 
-  // Force hide login screen
-  const loginEl = document.getElementById("login-screen");
-  loginEl.style.display = "none";
-  loginEl.style.position = "absolute";
-  loginEl.style.zIndex = "-999";
-  loginEl.style.opacity = "0";
-
+  document.getElementById("login-screen").classList.add("hidden");
   document.getElementById("chat-screen").style.display = "block";
+
   fetchMessages();
 }
 
