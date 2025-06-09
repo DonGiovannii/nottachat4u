@@ -15,7 +15,6 @@ function login() {
   fetchMessages();
 }
 
-
 function encryptMessage(message) {
   return CryptoJS.AES.encrypt(message, encryptionKey.toString()).toString();
 }
@@ -66,8 +65,6 @@ function fetchMessages() {
       let viewedAt = decryptMessage(msg.viewedAt);
 
       const now = new Date();
-
-      // Handle expiration logic
       let deleteRef = false;
 
       if (expireOption === "1view" && views >= 1) {
@@ -88,7 +85,6 @@ function fetchMessages() {
         continue;
       }
 
-      // Track first-time view only if not already set
       if (!viewedAt) {
         const nowStr = now.toISOString();
         db.ref(`messages/${key}/viewedAt`).set(encryptMessage(nowStr));
@@ -104,7 +100,6 @@ function fetchMessages() {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
   });
 }
-
 
 function clearAllMessages() {
   if (confirm("Are you sure you want to delete all messages? This cannot be undone.")) {
