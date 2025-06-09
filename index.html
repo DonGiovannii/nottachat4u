@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fake Language Chat</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+  <div id="login-screen">
+    <h2>Join the Chaos</h2>
+    <input type="password" id="password" placeholder="Enter shared passphrase" />
+    <button onclick="login()">Unlock</button>
+  </div>
+
+  <div id="chat-screen" style="display:none">
+    <h1>🔒 Encrypted Messenger</h1>
+    <div>
+      <input id="username" placeholder="Codename" />
+    </div>
+    <div id="messages"></div>
+    <textarea id="message" placeholder="Type your message..."></textarea>
+    <button onclick="sendMessage()">Send</button>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
+

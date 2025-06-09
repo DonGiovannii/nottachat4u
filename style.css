@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #0d0d0d;
+  color: #00ffcc;
+  font-family: monospace;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #00ffff;
+}
+
+#login-screen, #chat-screen {
+  padding: 20px;
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #1a1a1a;
+  border: 1px solid #00ffcc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffcc44;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #262626;
+  color: #00ffcc;
+  border: 1px solid #00ffcc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #00ffcc33;
+}
+
+button:hover {
+  background-color: #00ffcc55;
+}
+
+#messages {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #00ffcc;
+  padding: 10px;
+  background-color: #111;
+  border-radius: 4px;
+}
+
+.message {
+  padding: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px dashed #00ffcc44;
+}
+
+::selection {
+  background: #00ffcc;
+  color: #0d0d0d;
+}
+
