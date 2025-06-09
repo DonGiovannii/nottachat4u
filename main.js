@@ -106,40 +106,6 @@ function fetchMessages() {
 }
 
 
-
-      // handle expiration logic
-      const now = new Date();
-      const viewedDate = new Date(viewedAt);
-      const elapsedMinutes = (now - viewedDate) / 60000;
-
-      const deleteRef = () => db.ref("messages/" + key).remove();
-
-      if (expireOption === "1view" && views > 1) {
-        deleteRef();
-        continue;
-      }
-      if (expireOption === "5min" && elapsedMinutes > 5) {
-        deleteRef();
-        continue;
-      }
-      if (expireOption === "15min" && elapsedMinutes > 15) {
-        deleteRef();
-        continue;
-      }
-      if (expireOption === "1hr" && elapsedMinutes > 60) {
-        deleteRef();
-        continue;
-      }
-
-      const msgEl = document.createElement("div");
-      msgEl.className = "message";
-      msgEl.innerText = `[${new Date(timeStr).toLocaleString()}] ${user}: ${text}`;
-      messagesDiv.appendChild(msgEl);
-    }
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-  });
-}
-
 function clearAllMessages() {
   if (confirm("Are you sure you want to delete all messages? This cannot be undone.")) {
     db.ref("messages").remove();
