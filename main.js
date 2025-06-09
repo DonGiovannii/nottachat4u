@@ -8,10 +8,18 @@ function login() {
     iterations: 1000,
   });
   encryptionKey = key;
-  document.getElementById("login-screen").style.display = "none";
+
+  // Force hide login screen
+  const loginEl = document.getElementById("login-screen");
+  loginEl.style.display = "none";
+  loginEl.style.position = "absolute";
+  loginEl.style.zIndex = "-999";
+  loginEl.style.opacity = "0";
+
   document.getElementById("chat-screen").style.display = "block";
   fetchMessages();
 }
+
 
 function encryptMessage(message) {
   return CryptoJS.AES.encrypt(message, encryptionKey.toString()).toString();
